@@ -7,6 +7,17 @@ UZIP.js is faster than pako.js
 - Deflate (compression) is almost always faster
 - May produce smaller files than pako.js / ZLIB level 9 (especially for hard to compress data)
 
+## DrSnuggles version
+
+| Size in bytes | full UZIP     | depacker only |
+| ------------- | ------------- | ------------- |
+| Normal        |        30,250 |        11,999 |
+| Minimized     |        15,037 |         5,530 |
+| RegPacked     |        10,149 |         3,663 |
+
+In most cases i just need a tiny unzip function.
+RegPack: https://siorki.github.io/regPack.html
+
 ## Installation
 
 **Web**: Add the `UZIP.js` script to your webpage:
@@ -61,10 +72,8 @@ which can be `{level:L}`, where L is the level of compression (0 to 9).
 * `buff`: Uint8Array containing the ZLIB stream
 * returns Uint8Array with decompressed bytes
 
-These two functions have an optional third parameter: Output buffer (Uint8Array). 
+These two functions have an optional third parameter: Output buffer (Uint8Array).
 
 DEFLATE or ZLIB stream do not directly store the size of the output uncompressed data. Decompressors usually write the result into a small array, which is enlarged (copied into a bigger array) during the process.
 
 Practical applications of DEFLATE (like ZIP or PNG files) usually store the size of uncompressed data. If you provide the output buffer, decompression is faster (no need for gradual enlarging of the output array).
-
-
